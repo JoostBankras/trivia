@@ -1,6 +1,7 @@
 package com.example.trivia;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,14 +19,13 @@ public class final1 extends AppCompatActivity implements Response.Listener, Resp
 
     String score;
     String fault;
-
+    Integer amount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.final_page);
         Intent intent = getIntent();
         score = intent.getSerializableExtra("score").toString();
-        fault = intent.getSerializableExtra("fault").toString();
         TextView textView = findViewById(R.id.score);
         textView.setText(score);
         TextView textView1 = findViewById(R.id.false1);
@@ -41,6 +41,8 @@ public class final1 extends AppCompatActivity implements Response.Listener, Resp
         String score = textView1.getText().toString();
         PostRequest request = new PostRequest(Request.Method.POST, url, this, this, text, score );
         queue.add(request);
+        startActivity(new Intent(this, MainActivity.class));
+
     }
 
     @Override

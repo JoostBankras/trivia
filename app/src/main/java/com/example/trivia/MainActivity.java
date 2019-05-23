@@ -57,4 +57,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("amount", text1 );
         startActivity(intent);
     }
+    public void onClick2(View view){
+        Intent intent = new Intent(this, Highscores.class);
+        startActivity(intent);
+    }
 }
