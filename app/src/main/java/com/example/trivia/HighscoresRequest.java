@@ -18,11 +18,10 @@ public class HighscoresRequest implements Response.Listener<JSONObject>, Respons
 
     //    variables
     Context context;
-
     Callback activity1;
-    ArrayList<String> list = new ArrayList<String>();
     Integer joe1;
     String url;
+
     //    interface for functions
     public interface Callback {
         void gotHighscores(String name, String Highscore);
@@ -49,14 +48,14 @@ public class HighscoresRequest implements Response.Listener<JSONObject>, Respons
         }
     }
 
-    //    constructor for CategoriesRequest
+    //    constructor for HighscoreRequest
     public HighscoresRequest(Context context1, Integer joe){
         context = context1;
         joe1 = joe;
         url = "https://ide50-joostbankras.legacy.cs50.io:8080/list/" + joe1;
     }
 
-    //    callable function for Categories
+    //    callable function for highscores
     public void getHighscores(Callback activity){
         activity1 = activity;
         RequestQueue queue = Volley.newRequestQueue(context);

@@ -23,6 +23,7 @@ public class questionadapter extends ArrayAdapter<String> {
         }
         ArrayList <RadioButton> buttons = new ArrayList<>();
 
+//        set all the buttons with answers
         RadioButton btn1 = convertView.findViewById(R.id.radioButton);
         RadioButton btn2 = convertView.findViewById(R.id.radioButton2);
         RadioButton btn3 = convertView.findViewById(R.id.radioButton3);
@@ -43,6 +44,7 @@ public class questionadapter extends ArrayAdapter<String> {
         return convertView;
     }
 
+//    adapter for questions view
     public questionadapter(Context context, int resource, ArrayList<String> objects) {
         super(context, resource, objects);
         ListItems = objects;

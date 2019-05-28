@@ -18,21 +18,20 @@ import java.util.ArrayList;
 public class final1 extends AppCompatActivity implements Response.Listener, Response.ErrorListener{
 
     String score;
-    String fault;
-    Integer amount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.final_page);
+//        get highscore from intent and set in view
         Intent intent = getIntent();
         score = intent.getSerializableExtra("score").toString();
         TextView textView = findViewById(R.id.score);
         textView.setText(score);
-        TextView textView1 = findViewById(R.id.false1);
-        textView1.setText(fault);
     }
 
     public void onClick1(View view){
+//        make request for data from database
         TextView textView = findViewById(R.id.editText);
         String text = textView.getText().toString();
         String url = "https://ide50-joostbankras.legacy.cs50.io:8080/list";
@@ -45,13 +44,13 @@ public class final1 extends AppCompatActivity implements Response.Listener, Resp
 
     }
 
+//    on response
     @Override
     public void onErrorResponse(VolleyError error) {
-        System.out.println(error);
     }
 
+//    on error
     @Override
-    public void onResponse(Object response) {
-        System.out.println(response);
+    public void onResponse(Object response){
     }
 }

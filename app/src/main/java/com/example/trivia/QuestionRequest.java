@@ -22,11 +22,13 @@ public class QuestionRequest implements Response.Listener<JSONObject>, Response.
     Context context;
     Callback activity1;
 
+//    interface for functions
     public interface Callback {
         void gotQuestions(ArrayList<String> categories);
         void gotQuestionsError(String message);
     }
 
+//    on error
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.d("debug1 :", error.toString());
@@ -39,7 +41,8 @@ public class QuestionRequest implements Response.Listener<JSONObject>, Response.
         try{
             ArrayList<String> list = new ArrayList<>();
             array = response.getJSONArray("results");
-            Log.d("debuggen", array.toString());
+
+//            get all the JSON objects and add to list
             for (int i = 0; i < array.length(); i++ ){
                 JSONObject object = array.getJSONObject(i);
                 String question = object.getString("question");
@@ -51,20 +54,22 @@ public class QuestionRequest implements Response.Listener<JSONObject>, Response.
                 }
                 list.add(line);
             }
+//            pass list to main activity
             activity1.gotQuestions(list);
         } catch (JSONException e){
             e.printStackTrace();
         }
     }
 
+//    make a questionrequest
     public QuestionRequest(Context context1, String link1){
         link = link1;
         context = context1;
     }
 
+//    make a request to the API
     public void get_questions(Callback activity){
         activity1 = activity;
-        System.out.println(link);
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(link,null, this, this);
         queue.add(jsonObjectRequest);

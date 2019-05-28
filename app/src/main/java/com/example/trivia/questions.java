@@ -42,31 +42,38 @@ public class questions extends AppCompatActivity implements QuestionRequest.Call
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
+
+//        get everything from intent
         Intent intent = getIntent();
         difficulty = intent.getSerializableExtra("difficulty").toString();
         category = intent.getSerializableExtra("category").toString();
         String amount1 = intent.getSerializableExtra("amount").toString();
         amount = Integer.parseInt(amount1);
+
+//        make the link for API
         link = "https://opentdb.com/api.php?amount=" + amount + "&category=" + category + "&type=multiple&difficulty=" + difficulty;
         QuestionRequest data = new QuestionRequest(this, link);
         data.get_questions(this);
+
+//        get all the saved values
         if (load_score() != null){
             score = load_score();
         }
         if (load_count() != null){
             count = load_count();
         }
-        System.out.println(count);
+
     }
 
     @Override
     public void gotQuestions(ArrayList<String> questions1) {
+//        when questions come in, set them in view
         questions = questions1;
-        System.out.println(questions);
         set_questions(questions.get(count));
     }
 
     public void save(){
+//        save all the values
         SharedPreferences sharedPreferences=getSharedPreferences("score",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("score",score);
@@ -77,22 +84,26 @@ public class questions extends AppCompatActivity implements QuestionRequest.Call
         editor.commit();
     }
 
+//    load all the saved score
     public Integer load_score(){
         SharedPreferences sharedPreferences=getSharedPreferences("score",MODE_PRIVATE);
         Integer score2 =sharedPreferences.getInt("score",0);
         return score2;
     }
 
+//    load the amount of answered questions
     public Integer load_count(){
         SharedPreferences sharedPreferences=getSharedPreferences("count",MODE_PRIVATE);
         Integer count1 =sharedPreferences.getInt("count",0);
         return count1;
     }
 
+//    check if answer is correct, add to score
     public void onClick(View view){
         count += 1;
         save();
-        System.out.println("correct1 : '" + correct + "'" + btn1.getText() + "'");
+
+//        all check functions
         if(btn1.isChecked()){
             if (btn1.getContentDescription() == correct){
                 score += 1;
@@ -114,11 +125,13 @@ public class questions extends AppCompatActivity implements QuestionRequest.Call
             }
 
         }
-        if (count < questions.size()){
-            System.out.println("score" + score);
 
+//        continue firing questions
+        if (count < questions.size()){
             set_questions(questions.get(count));
         }
+
+//        else start final intent
         else{
             Intent intent = new Intent(this, final1.class);
             intent.putExtra("score", score.toString());
@@ -137,6 +150,7 @@ public class questions extends AppCompatActivity implements QuestionRequest.Call
 
     }
 
+//    set the question view with all the possible answers
     public void set_questions(String question){
         String[] text = question.split("~");
         buttons = new ArrayList<>();
@@ -152,7 +166,8 @@ public class questions extends AppCompatActivity implements QuestionRequest.Call
         textview.setText(Html.fromHtml(text[0]));
         Random random = new Random();
         correct = text[1];
-        System.out.println("correct :" + correct);
+
+//        set all buttons
         for (int i=1;i<5;i++){
             RadioButton btn = buttons.get(random.nextInt(buttons.size()));
             buttons.remove(btn);

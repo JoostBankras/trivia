@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     String[] items;
     String[] items1;
     String[] items2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         dropdown = findViewById(R.id.spinner);
         dropdown2 = findViewById(R.id.spinner2);
         dropdown3 = findViewById(R.id.spinner3);
+
         //create a list of items for the spinner.
         items = new String[]{"Book", "Film", "Music", "Musicals & Theatres", "Television", "Video Games", "Board Games"};
         items1 = new String[]{"5", "10", "15", "20"};
@@ -31,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setAdapter(items, dropdown);
         setAdapter(items1, dropdown2);
         setAdapter(items2, dropdown3);
-
-
     }
     public void setAdapter(String[] items, Spinner dropdown){
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
     }
+
+//    on submit push everything to the data request
     public void onClick(View view){
         String text = dropdown.getSelectedItem().toString();
         String text1 = dropdown2.getSelectedItem().toString();
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("amount", text1 );
         startActivity(intent);
     }
+
+//    go to highscore class
     public void onClick2(View view){
         Intent intent = new Intent(this, Highscores.class);
         startActivity(intent);
